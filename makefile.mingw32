@@ -1,0 +1,65 @@
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+# @(#)makefile.mingw32 1.0  2010/01/24
+#   ________        _________________.________
+#  /  _____/  ____ /   _____/   __   \   ____/
+# /   \  ___ /  _ \\_____  \\____    /____  \
+# \    \_\  (  <_> )        \  /    //       \
+#  \______  /\____/_______  / /____//______  /
+#         \/              \/               \/
+# Copyright (c) 2010 by
+# Alessandro Fraschetti (gos95@gommagomma.net)
+#
+# Project...: Traytree - A system-tray directories access utility
+# Module....: Makefile for MingW32 compiler
+# Author....: Alessandro Fraschetti
+# Notes.....:
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+
+
+TARGET  = Traytree
+
+
+SRCPATH = src
+RESPATH = res
+OBJPATH = obj
+RELPATH = release
+
+
+CC      = gcc
+WINDRES = windres
+RM      = rm -f
+CP      = cp
+ZIP     = pkzip
+
+
+CFLAGS  = -pipe -Wall -g0 -O2 -frtti -fexceptions
+LDFLAGS = -pipe -s -mwindows -lcomctl32
+
+
+BIN  = $(TARGET).exe
+OBJ  = $(OBJPATH)/Traytree.o $(OBJPATH)/About.o
+ROBJ = $(OBJPATH)/resource.o
+
+
+
+all: $(RELPATH)/$(BIN)
+	$(CP) $(TARGET).txt $(RELPATH)/$(TARGET).txt
+	$(CP) $(TARGET).ini $(RELPATH)/$(TARGET).ini
+	$(CP) license.txt $(RELPATH)/license.txt
+
+.PHONY: clean
+clean: $(RM) $(OBJ) $(ROBJ)
+
+
+$(RELPATH)/$(BIN): $(OBJ) $(ROBJ)
+	$(CC) -o $(RELPATH)/$(BIN) $(OBJ) $(ROBJ) $(LDFLAGS)
+
+
+$(OBJPATH)/Traytree.o: $(SRCPATH)/Traytree.cpp $(SRCPATH)/Traytree.h
+	$(CC) -c $(SRCPATH)/Traytree.cpp -o $(OBJPATH)/Traytree.o $(CFLAGS)
+
+$(OBJPATH)/About.o: $(SRCPATH)/About.cpp $(SRCPATH)/Traytree.h
+	$(CC) -c $(SRCPATH)/About.cpp -o $(OBJPATH)/About.o $(CFLAGS)
+
+$(OBJPATH)/resource.o: $(SRCPATH)/Traytree.rc $(SRCPATH)/resource.h
+	@$(WINDRES) -o $(OBJPATH)/resource.o $(SRCPATH)/Traytree.rc

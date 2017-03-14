@@ -1,0 +1,109 @@
+/*                                                     ''~``
+ * @(#)Traytree.rc 1.0  2010/01/17                    ( o o )
+ * +---------------------------------------------.oooO--(_)--Oooo.----+
+ * |   ________        _________________.________                     |
+ * |  /  _____/  ____ /   _____/   __   \   ____/                     |
+ * | /   \  ___ /  _ \\_____  \\____    /____  \                      |
+ * | \    \_\  (  <_> )        \  /    //       \                     |
+ * |  \______  /\____/_______  / /____//______  /                     |
+ * |         \/              \/               \/                      |
+ * | Copyright (c) 2010 by                                            |
+ * | Alessandro Fraschetti (gos95@gommagomma.net)                     |
+ * |                                                                  |
+ * | Project...: Traytree - A system-tray directories access utility  |
+ * | Module....: Resource File                                        |
+ * | Author....: Alessandro Fraschetti                                |
+ * | Notes.....:                                                      |
+ * |                                              .oooO               |
+ * |                                             (     )    Oooo.     |
+ * +-----------------------------------------------\  (----(    )-----+
+ *                                                  \_ )    )  /
+ * For more information about Traytree visit:              ( _/
+ *     http://gommagomma.net/gos95/Traytree
+ *
+ *  This program is free software; you can redistribute it and/or
+ *  modify it under the terms of the GNU General Public License as 
+ *  published by the Free Software Foundation; either version 2 of the
+ *  License, or (at your option) any later version. 
+ *
+ *  This program is distributed in the hope that it will be useful, but
+ *  WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ *  General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program; if not, see <http://www.gnu.org/licenses/>.
+ */
+
+
+#ifndef __BORLANDC__
+#include <windows.h>
+#endif
+
+
+#include "resource.h"
+
+
+#define IDC_STATIC	-1
+
+
+STRINGTABLE DISCARDABLE
+BEGIN
+  IDC_APP_WCLASSNAME		"Traytree"
+  IDS_APP_TITLE				"Traytree"
+  IDS_TRAY_TOOLTIP			"Traytree"
+  IDS_ABOUT_TEXT            "GOS95 T r a y t r e e    0.2 03/2010\n\n\rCopyright (c) 2010 Alessandro Fraschetti"
+  IDS_ABOUT_WEB             "http://www.gommagomma.net/gos95/Traytree/"
+END
+
+
+1                       		24     DISCARDABLE "res/Traytree.manifest"
+IDI_APP_ICON					ICON   DISCARDABLE "res/icon.ico"
+IDB_LOGO_GOS95                  BITMAP DISCARDABLE "res/logo.bmp"
+IDB_ABOUT_BACKGROUND            BITMAP DISCARDABLE "res/keyboard.bmp"
+
+
+
+IDR_APP_MENU MENU
+BEGIN
+  POPUP "popup"
+  BEGIN
+    MENUITEM SEPARATOR
+    MENUITEM "Configure..."					,ID_CMD_CONFIGURE
+    MENUITEM "Exit"							,ID_CMD_EXIT
+    MENUITEM SEPARATOR
+    MENUITEM "About..."						,ID_CMD_ABOUT
+  END
+END
+
+
+IDD_LICENSE DIALOGEX DISCARDABLE 0, 0, 230, 170
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Traytree License"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "OK", IDOK, 91, 150, 44, 14
+    LTEXT "Copyright (c) 2010 Alessandro Fraschetti", IDC_STATIC, 5, 11, 226, 8
+    LTEXT "This program is free software; you can redistribute it and/or", IDC_STATIC, 5 ,44, 226, 8
+    LTEXT "modify it under the terms of the GNU General Public License as", IDC_STATIC, 5, 55, 226, 8
+    LTEXT "published by the Free Software Foundation; either version 2 of the", IDC_STATIC, 5, 66, 226, 8
+    LTEXT "License, or (at your option) any later version. ",IDC_STATIC, 5, 77, 226, 8
+
+    LTEXT "This program is distributed in the hope that it will be useful, but", IDC_STATIC, 5, 99, 226, 8
+    LTEXT "WITHOUT ANY WARRANTY; without even the implied warranty of", IDC_STATIC, 5, 110, 226, 8
+    LTEXT "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.", IDC_STATIC, 5, 121, 226, 8
+    LTEXT "See the GNU General Public License for more details.", IDC_STATIC, 5, 132, 226, 8
+END
+
+
+IDD_ABOUT DIALOGEX DISCARDABLE 0,0,200,90
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU | DS_CENTER
+CAPTION "About Traytree"
+FONT 8, "MS Sans Serif"
+BEGIN
+  CONTROL		IDB_LOGO_GOS95, IDC_STATIC, "STATIC", SS_BITMAP, 0, 0, 100, 50
+  GROUPBOX		"", IDC_STATIC, 0, 18, 199, 72, SS_GRAYRECT
+  DEFPUSHBUTTON	"&Close", IDOK, 145, 70, 50, 14
+  PUSHBUTTON    "View &License", ID_LICENSE, 6, 70, 62, 14
+  PUSHBUTTON    "Visit &Web Site", ID_WEB, 75, 70, 62, 14
+END
